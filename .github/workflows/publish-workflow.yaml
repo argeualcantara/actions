@@ -23,7 +23,7 @@ jobs:
       run: |
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           git tag -a v1.0.${{ github.run_number }} -m "New actions release"
+          git config --local user.email "actions@github.com"
+          git config --local user.name "github-actions"
           git push origin --tags
         fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
