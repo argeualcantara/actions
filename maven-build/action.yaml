@@ -1,5 +1,5 @@
-name: 'Set Semantic Version'
-description: 'Set semantic version for pipeline'
+name: 'Maven Build'
+description: 'Setup Java SDK and runs Maven build'
 inputs:
   java-version: 
     description: "Java version"
@@ -18,7 +18,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up JDK 11
+    - name: Set up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v2
       with:
         java-version: ${{ inputs.java-version }}
