@@ -10,21 +10,16 @@ inputs:
     required: false
     default: "./pom.xml"
 
-outputs:
-  version:
-    description: "Pipeline version"
-    value: ${{ steps.set-semantic-version.outputs.version }}
-
 runs:
   using: "composite"
   steps:
-    - name: Set up JDK ${{ inputs.java-version }}
-      uses: actions/setup-java@v2
-      id: setup-java
-      with:
-        java-version: ${{ inputs.java-version }}
-        distribution: 'adopt'
-    - name: Build with Maven
-      shell: bash
-      id: maven-build
-      run: mvn clean install -f ${{ inputs.pom-file-path }}
+  - name: Set up JDK ${{ inputs.java-version }}
+    uses: actions/setup-java@v2
+    id: setup-java
+    with:
+      java-version: ${{ inputs.java-version }}
+      distribution: 'adopt'
+  - name: Build with Maven
+    shell: bash
+    id: maven-build
+    run: mvn clean install -f ${{ inputs.pom-file-path }}
