@@ -1,10 +1,6 @@
 name: 'Maven Build'
 description: 'Setup Java SDK and runs Maven build'
 inputs:
-  java-version: 
-    description: "Java version"
-    required: false
-    default: "11"
   pom-file-path:
     description: "pom.xml file to use in mvn build command"
     required: false
@@ -13,13 +9,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - name: Set up JDK version
-    uses: actions/setup-java@v2
-    id: setup-java
-    with:
-      java-version: ${{ inputs.java-version }}
-      distribution: 'adopt'
-  - name: Build with Maven
-    shell: bash
-    id: maven-build
-    run: mvn clean install -f ${{ inputs.pom-file-path }}
+    - name: Build with Maven
+      shell: bash
+      id: maven-build
+      run: |
+        mvn clean install -f ${{ inputs.pom-file-path }}
