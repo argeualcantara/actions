@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+name: Push to Docker Hub
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set semantic version
+      shell: bash
+      id: set-semantic-version
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          git tag -a v1.0.${{ github.build_number }} -m "New actions release"
+          git push origin --tags
+        fi
