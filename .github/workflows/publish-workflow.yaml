@@ -6,7 +6,7 @@ on:
     branches:
       - main
 
-name: Push to Docker Hub
+name: Publish version
 
 jobs:
   publish:
@@ -17,11 +17,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Set semantic version
+    - name: Git tag version
       shell: bash
-      id: set-semantic-version
+      id: git-tag-version
       run: |
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           git tag -a v1.0.${{ github.run_number }} -m "New actions release"
           git push origin --tags
         fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
