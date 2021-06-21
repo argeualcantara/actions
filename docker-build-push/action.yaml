@@ -29,6 +29,13 @@ runs:
       id: docker-login
       run: |
         docker login -u "${{ inputs.dockerHubLogin }}" -p "${{ inputs.dockerHubPassword }}"
+
+    - name: Display Version Input
+      shell: bash
+      id: echo-version-input
+      run: |
+        echo "${{ inputs.version }}"
+
     - name: Build, tag, and push image to Docker Hub
       shell: bash
       id: build-image

@@ -8,10 +8,11 @@ inputs:
     description: "branch name to generate a new version"
     required: false
     default: "main"
-output:
+
+outputs:
   version:
     description: "Pipeline version"
-    
+    value: ${{ steps.set-semantic-version.outputs.version }}
 
 runs:
   using: "composite"
@@ -20,10 +21,15 @@ runs:
       shell: bash
       id: set-semantic-version
       run: |
-        
         if [ "${{ github.ref }}" == "refs/heads/${{ inputs.release-branch-name }}" ]; then
           echo '::set-output name=version::${{ inputs.version-major-minor }}.${{ github.run_number }}'
         else
           hash=$(git rev-parse --short HEAD)
           echo '::set-output name=version::${{ inputs.version-major-minor }}.${{ github.run_number }}-$hash'
         fi
+
+    - name: Set semantic version
+      shell: bash
+      id: show-version
+      run: |
+        echo "Defined Version is ${{ steps.set-semantic-version.outputs.version }}"
