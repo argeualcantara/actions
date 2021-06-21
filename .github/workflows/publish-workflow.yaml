@@ -22,6 +22,6 @@ jobs:
       id: set-semantic-version
       run: |
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-          git tag -a v1.0.${{ github.build_number }} -m "New actions release"
+          git tag -a v1.0.${{ github.run_number }} -m "New actions release"
           git push origin --tags
         fi
