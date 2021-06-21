@@ -15,11 +15,11 @@ inputs:
     required: true
   push:
     description: "boolean push or not the image"
-    required: true
+    required: false
     default: false
   context:
     description: "docker context"
-    required: true
+    required: false
     default: "."
 runs:
   using: "composite"

@@ -1,0 +1,27 @@
+name: 'Set Semantic Version'
+description: 'Set semantic version for pipeline'
+inputs:
+  java-version: 
+    description: "Java version"
+    required: false
+    default: "11"
+  pom-file-path:
+    description: "pom.xml file to use in mvn build command"
+    required: false
+    default: "./pom.xml"
+
+outputs:
+  version:
+    description: "Pipeline version"
+    value: ${{ steps.set-semantic-version.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: 'adopt'
+    - name: Build with Maven
+      run: mvn clean install -f ${{ inputs.pom-file-path }}
