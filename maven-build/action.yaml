@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - name: Set up JDK ${{ inputs.java-version }}
+  - name: Set up JDK version
     uses: actions/setup-java@v2
     id: setup-java
     with:
