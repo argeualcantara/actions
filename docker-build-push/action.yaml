@@ -44,5 +44,5 @@ runs:
                       -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:latest \
                       ${{ inputs.context }}
         if [ "${{ inputs.push }}" == "true" ]; then
-          docker push  ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:${{ inputs.version }}
+          docker push --all-tags ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}
         fi
