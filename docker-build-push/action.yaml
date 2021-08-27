@@ -40,7 +40,9 @@ runs:
       shell: bash
       id: build-image
       run: |
-        docker build -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:${{ inputs.version }} ${{ inputs.context }}
+        docker build -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:${{ inputs.version }} \
+                      -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:latest \
+                      ${{ inputs.context }}
         if [ "${{ inputs.push }}" == "true" ]; then
           docker push  ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:${{ inputs.version }}
         fi
