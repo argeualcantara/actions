@@ -41,9 +41,10 @@ runs:
       shell: bash
       id: build-image
       run: |
+        PUSH=${{ inputs.push }}
         docker build -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:${{ inputs.version }} \
                       -t ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}:latest \
                       ${{ inputs.context }}
-        if [ "${{ inputs.push }}" == "true" ]; then
+        if [ "${PUSH}" == "true" ]; then
           docker push --all-tags ${{ inputs.dockerHubLogin }}/${{ inputs.repo }}
         fi
